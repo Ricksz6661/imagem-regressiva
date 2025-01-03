@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surpresa com Contagem Regressiva</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #b3d9ff; /* Azul bebê */
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #e6f2ff; /* Azul bebê mais claro */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    #startButton {
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      color: white;
+      background: linear-gradient(135deg, #3399ff, #66ccff);
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    #startButton:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    #countdown {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #3399ff; /* Azul bebê mais escuro */
+    }
+
+    .carousel {
+      display: none;
+      position: relative;
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      overflow: hidden;
+    }
+
+    .carousel img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .carousel button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="startButton">Começar</button>
+    <div id="countdown" style="display: none;">10</div>
+    <div class="carousel" id="carousel">
+      <button class="prev" onclick="changeImage(-1)">&lt;</button>
+      <img id="carouselImage" src="surpresa-10-9165.gif" alt="Surpresa 1!" />
+      <button class="next" onclick="changeImage(1)">&gt;</button>
+    </div>
+  </div>
+
+  <script>
+    let countdown = 10; // Tempo inicial da contagem regressiva
+    const startButton = document.getElementById('startButton');
+    const countdownElement = document.getElementById('countdown');
+    const carousel = document.getElementById('carousel');
+    const carouselImage = document.getElementById('carouselImage');
+
+    const images = ['img3.png', 'img1.png', 'img2.png'];
+    let currentIndex = 0;
+    let timer;
+
+    startButton.addEventListener('click', () => {
+      startButton.style.display = 'none';
+      countdownElement.style.display = 'block';
+      timer = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = countdown;
+
+        if (countdown === 0) {
+          clearInterval(timer);
+          countdownElement.style.display = 'none'; // Esconde a contagem
+          carousel.style.display = 'block'; // Mostra o carrossel
+        }
+      }, 1000); // Atualiza a cada segundo
+    });
+
+    function changeImage(direction) {
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = images.length - 1;
+      if (currentIndex >= images.length) currentIndex = 0;
+      carouselImage.src = images[currentIndex];
+    }
+  </script>
+</body>
+</html>
